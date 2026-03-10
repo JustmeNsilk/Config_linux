@@ -3,7 +3,7 @@
 # Comments start with a '#' and are only valid on their own line.
 # Blank lines are ignored.
 # Know that this file is available at this repository:
-# 'https://github.com/JustmeNsilk/config_linux'
+# 'www.github-repo.com'
 
 #                ------------------------
 #		|      Config Files	 |
@@ -17,11 +17,11 @@ config-file = my-keybinds
 #		|	  Background Image	 |
 #                --------------------------------
 
-background-image = ./img/background.png
-background-image-opacity = 0.3
-background-image-fit = cover
-background-blur = false
-minimum-contrast = 5
+# background-image = ./img/background.png
+# background-image-opacity = 0.3
+# background-image-fit = cover
+# background-blur = false
+# minimum-contrast = 5
 
 # 'background-image-fit' parameters:
 #
@@ -66,7 +66,7 @@ notify-on-command-finish-action = no-bell
 # Warning: if you do not want to have a shader/trail behind your cursor,
 # place a '#' in front of 'custom-shader' to avoid any errors.
 # Instead if you want to have the shader please follow the instruction into the readme at :
-# 'https://github.com/KroneCorylus/ghostty-shader-playground#'
+# 'www.github-repo.com'
 
 custom-shader = ./ghostty-shaders/public/shaders/cursor_smear.glsl
 cursor-style = underline
@@ -91,10 +91,28 @@ adjust-overline-thickness = 3
 #		|	  Window  	 |
 #		 ------------------------
 
-window-height=510
-window-width=1640
+maximize = true
+window-save-state = never
+window-decoration = none
 window-vsync = true
 window-theme = dark
-fullscreen = true
-window-save-state = always
 focus-follows-mouse = true
+
+# 'windows-decoration' parameters:
+#	- none:
+#		All window decorations will be disabled. 
+#		Titlebar, borders, etc. will not be shown.
+#
+#	- auto:
+#		Automatically decide to use either client-side or server-side decorations 
+#		based on the detected preferences of the current OS and desktop environment.
+#
+#	- client:
+#		Prefer client-side decorations.
+#
+#	- server:
+#		Prefer server-side decorations. This is only relevant on Linux with GTK, 
+#		either on X11, or Wayland on a compositor that supports the 
+#		org_kde_kwin_server_decoration protocol (e.g. KDE Plasma, but almost any non-GNOME desktop supports this protocol).
+#		If server is set but the environment doesn't support server-side decorations,
+#		client-side decorations will be used instead.
