@@ -3,7 +3,7 @@
 # Comments start with a '#' and are only valid on their own line.
 # Blank lines are ignored.
 # Know that this file is available at this repository:
-# 'www.github-repo.com'
+# 'https://github.com/JustmeNsilk/config_linux'
 
 #                ------------------------
 #		|      Config Files	 |
@@ -66,7 +66,7 @@ notify-on-command-finish-action = no-bell
 # Warning: if you do not want to have a shader/trail behind your cursor,
 # place a '#' in front of 'custom-shader' to avoid any errors.
 # Instead if you want to have the shader please follow the instruction into the readme at :
-# 'www.github-repo.com'
+# 'https://github.com/KroneCorylus/ghostty-shader-playground#'
 
 custom-shader = ./ghostty-shaders/public/shaders/cursor_smear.glsl
 cursor-style = underline
