@@ -133,7 +133,6 @@ sudo pacman -S neovim git gcc ripgrep nodejs npm lazygit
 
 ```bash
 sudo apt install neovim git gcc ripgrep nodejs npm
-# lazygit n'est pas dans les dépôts officiels, installer via GitHub releases :
 LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep '"tag_name":' | sed -E 's/.*"v*([^"]+)".*/\1/')
 curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
 tar xf lazygit.tar.gz lazygit
