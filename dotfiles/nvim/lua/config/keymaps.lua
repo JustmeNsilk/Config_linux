@@ -15,4 +15,6 @@ map("n", "<C-u>", "<C-u>zz")
 map("n", "<Tab>", "<cmd>BufferLineCycleNext<cr>")
 map("n", "<S-Tab>", "<cmd>BufferLineCyclePrev<cr>")
 map("n", "<leader>x", "<cmd>bdelete<cr>")
-
+map("n", "<leader>ff", "<cmd>Telescope find_files<cr>")
+map("n", "<leader>fg", "<cmd>Telescope live_grep<cr>")
+map("n", "<leader>fb", "<cmd>Telescope buffers<cr>")
