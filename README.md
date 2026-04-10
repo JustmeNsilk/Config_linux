@@ -1,121 +1,246 @@
 # 🐧 Linux Configuration
 
-This repository contains my personal **Linux configuration files**.
+> Personal Linux configuration files — centralized, versioned, and ready to deploy.
 
-It is intended to centralize and version the configuration of the tools I use daily, such as:
-
-* 🖥️ terminal emulators
-* 💻 development environments (IDE / editors)
-* ⚙️ development tools
-* 🎨 visual themes and assets
-
-The repository will **evolve over time** as my workflow improves and as I experiment with new tools.
+[![License: GPL-3.0](https://img.shields.io/badge/License-GPL%203.0-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![Neovim](https://img.shields.io/badge/Neovim-0.11+-green.svg)](https://neovim.io)
+[![Distro](https://img.shields.io/badge/Distro-Fedora%20%7C%20Arch%20%7C%20Debian-orange.svg)]()
 
 ---
 
-# 📁 Repository Architecture
+## 📑 Table of Contents
+
+- [Repository Architecture](#-repository-architecture)
+- [Symlinks Setup](#-symlinks-setup)
+- [Ghostty](#️-ghostty)
+- [Neovim](#-neovim)
+  - [How it works](#how-it-works)
+  - [Dependencies](#dependencies)
+  - [Plugin manager](#plugin-manager-lazynvim)
+  - [Config modules](#-luaconfig)
+  - [Plugins](#-luaplugins)
+  - [LSP Servers](#lsp-servers)
+  - [Key mappings](#key-mappings)
+- [Future Improvements](#-future-improvements)
+
+---
+
+## 📁 Repository Architecture
 
 ```text
 📁 linux-config
- └── 📁 config
-      └── 📁 ghostty
-           ├── 📁 img
-           │    └── background.png
-           │
-           ├── config.ghostty
-           ├── my-theme
-           └── my-keybind
+ └── 📁 dotfiles
+      ├── 📁 ghostty
+      │    ├── 📁 img
+      │    │    └── background.png
+      │    ├── config.ghostty
+      │    ├── my-theme
+      │    └── my-keybinds
+      │
+      └── 📁 nvim
+           ├── init.lua
+           └── 📁 lua
+                ├── 📁 config
+                │    ├── options.lua
+                │    ├── keymaps.lua
+                │    └── autocmds.lua
+                └── 📁 plugins
+                     ├── init.lua
+                     ├── ui.lua
+                     ├── editor.lua
+                     ├── lsp.lua
+                     ├── telescope.lua
+                     └── git.lua
 ```
 
 ---
 
-# 📂 Directory Details
+## 🔗 Symlinks Setup
 
-## 📁 config
+All config directories are symlinked to `~/.config/` so that edits in this repo are reflected instantly.
 
-Central directory containing the configuration of different tools used in my Linux environment.
+```bash
+# Clone the repo
+git clone https://github.com/JustmeNsilk/linux_config ~/linux_config
 
-As the repository grows, additional applications will appear here (terminal, editor, development tools, etc.).
+# Ghostty
+rm -rf ~/.config/ghostty
+ln -s ~/linux_config/dotfiles/ghostty ~/.config/ghostty
 
-Example future structure:
-
-```text
-config/
- ├── ghostty
- ├── nvim
- ├── ide
- └── tools
+# Neovim
+rm -rf ~/.config/nvim
+ln -s ~/linux_config/dotfiles/nvim ~/.config/nvim
 ```
 
 ---
 
-## 🖥️ ghostty
+## 🖥️ Ghostty
 
-Configuration files for the **Ghostty terminal**.
+Configuration files for the **[Ghostty terminal](https://ghostty.org)**.
 
-This directory contains:
-
-* terminal configuration
-* visual assets
-* theme definitions
-* custom keybindings
-
----
-
-### ⚙️ config.ghostty
-
-Main configuration file used by Ghostty.
-
-It defines the **core terminal behavior**, including:
-
-* window behavior
-* rendering options
-* theme imports
-* keybinding imports
-* performance settings
-
-This file acts as the **entry point of the Ghostty configuration**.
+| File | Purpose |
+|------|---------|
+| `config.ghostty` | Entry point — core terminal behavior (window, rendering, imports) |
+| `my-theme` | Color palette, background/foreground, cursor styling |
+| `my-keybinds` | Custom shortcuts for tabs, panes, and window control |
 
 ---
 
-### 🎨 my-theme
+## 💻 Neovim
 
-Custom theme configuration.
+Configuration for **[Neovim](https://neovim.io)** — a modern, extensible terminal-based editor.
 
-Defines the visual appearance of the terminal:
+### How it works
 
-* color palette
-* background and foreground colors
-* cursor styling
-* terminal color overrides
+`~/.config/nvim/init.lua` is the **entry point**. It loads everything in order:
 
----
-
-### ⌨️ my-keybind
-
-Custom keyboard bindings used by the terminal.
-
-Contains shortcuts for:
-
-* tab management
-* pane navigation
-* workflow optimizations
-* window control
-
-Separating keybindings keeps the configuration easier to maintain.
-
-# 🔮 Future Improvements
-
-Planned improvements include:
-
-* additional application configurations (IDE, editors, tools)
-* more modular theme management
-* improved keybinding ergonomics
-* better documentation of configuration choices
+```
+init.lua
+ ├── vim.g.mapleader = " "            -- leader key (Space)
+ ├── bootstrap lazy.nvim              -- auto-installs plugin manager
+ ├── require("config.options")        -- editor settings
+ ├── require("config.keymaps")        -- key mappings
+ ├── require("config.autocmds")       -- auto commands
+ └── require("lazy").setup("plugins") -- loads lua/plugins/*.lua
+```
 
 ---
 
-# 📜 License
+### Dependencies
 
-GPL-3.0 Licence
-Feel free to explore or use it as inspiration for your own Linux setup.
+Install the required system dependencies for your distro:
+
+<details>
+<summary>🔵 Fedora</summary>
+
+```bash
+sudo dnf install neovim git gcc ripgrep nodejs npm lazygit
+```
+
+</details>
+
+<details>
+<summary>🟣 Arch Linux</summary>
+
+```bash
+sudo pacman -S neovim git gcc ripgrep nodejs npm lazygit
+```
+
+</details>
+
+<details>
+<summary>🟠 Debian / Ubuntu</summary>
+
+```bash
+sudo apt install neovim git gcc ripgrep nodejs npm
+# lazygit n'est pas dans les dépôts officiels, installer via GitHub releases :
+LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep '"tag_name":' | sed -E 's/.*"v*([^"]+)".*/\1/')
+curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+tar xf lazygit.tar.gz lazygit
+sudo install lazygit -D -t /usr/local/bin/
+```
+
+</details>
+
+---
+
+### Nerd Font (required for icons)
+
+<details>
+<summary>📦 Install JetBrainsMono Nerd Font</summary>
+
+```bash
+mkdir -p ~/.local/share/fonts
+curl -Lo /tmp/JetBrainsMono.zip https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip
+unzip /tmp/JetBrainsMono.zip -d ~/.local/share/fonts/JetBrainsMono
+fc-cache -fv
+```
+
+Puis dans la config de ton terminal :
+```
+font-family = JetBrainsMono Nerd Font Mono
+```
+
+</details>
+
+---
+
+### Plugin manager: lazy.nvim
+
+**[lazy.nvim](https://github.com/folke/lazy.nvim)** is auto-installed on first Neovim launch — no manual setup needed.
+
+```
+:Lazy          → open plugin manager UI
+:Lazy update   → update all plugins
+:Lazy clean    → remove unused plugins
+```
+
+---
+
+### 📄 lua/config/
+
+| File | Purpose |
+|------|---------|
+| `options.lua` | Core editor settings (line numbers, indentation, clipboard, colors…) |
+| `keymaps.lua` | All custom key mappings — leader key is `Space` |
+| `autocmds.lua` | Auto commands triggered by events (save, open, filetype…) |
+
+---
+
+### 📦 lua/plugins/
+
+| File | Plugins | Purpose |
+|------|---------|---------|
+| `ui.lua` | gruvbox, lualine, nvim-tree, bufferline | Theme, statusline, file explorer, tabs |
+| `editor.lua` | nvim-autopairs | Auto-close brackets, quotes, parentheses |
+| `lsp.lua` | mason, mason-lspconfig, nvim-lspconfig, nvim-cmp, LuaSnip | LSP, autocompletion, snippets |
+| `telescope.lua` | telescope.nvim | Fuzzy finder — search files and text |
+| `git.lua` | gitsigns, lazygit.nvim | Git signs in gutter, full Git UI |
+
+---
+
+### LSP Servers
+
+Managed via **[Mason](https://github.com/williamboman/mason.nvim)** — open `:Mason` inside Neovim to install/update servers.
+
+| Server | Language |
+|--------|---------|
+| `clangd` | C / C++ |
+| `pyright` | Python |
+
+---
+
+### Key mappings
+
+> Leader key = `Space`
+
+| Shortcut | Action |
+|----------|--------|
+| `Space + w` | Save file |
+| `Space + q` | Quit |
+| `Space + e` | Toggle file explorer |
+| `Space + ff` | Find file |
+| `Space + fg` | Search text in files |
+| `Space + fb` | Search open buffers |
+| `Space + gg` | Open Lazygit |
+| `Space + gb` | Git blame current line |
+| `Space + gp` | Preview git hunk |
+| `Tab` | Next buffer |
+| `Shift + Tab` | Previous buffer |
+| `Space + x` | Close current buffer |
+| `Ctrl + h/j/k/l` | Navigate between splits |
+
+---
+
+## 🔮 Future Improvements
+
+- [ ] DAP (debugger) for C++ and Python
+- [ ] Shell configuration (zsh / aliases)
+- [ ] Additional tool configs
+- [ ] Automated install script
+
+---
+
+## 📜 License
+
+GPL-3.0 — feel free to explore or use as inspiration for your own setup.
