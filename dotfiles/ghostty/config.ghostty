@@ -27,13 +27,13 @@ config-file = my-keybinds
 #
 #	- contain :
 #		Preserving the aspect ratio,
-#		scale the background image to the largest size 
+#		scale the background image to the largest size
 #		that can still be contained within the terminal,
 #		so that the whole image is visible.
 #
 #	- cover :
-#		Preserving the aspect ratio, scale the background image 
-#		to the smallest size that can completely cover the terminal. 
+#		Preserving the aspect ratio, scale the background image
+#		to the smallest size that can completely cover the terminal.
 #		This may result in one or more edges of the image being clipped by the edge of the terminal.
 #
 #	- stretch :
@@ -43,7 +43,7 @@ config-file = my-keybinds
 # 'minimum-contrast' values:
 #
 #	If you want to avoid invisible text (same color as background), a value of 1.1 is a good value.
-#	If you want to avoid text that is difficult to read, a value of 3 or higher is a good value. 
+#	If you want to avoid text that is difficult to read, a value of 3 or higher is a good value.
 #	The higher the value, the more likely that text will become black or white.
 
 
@@ -54,6 +54,7 @@ config-file = my-keybinds
 selection-word-chars = " \t'\"│`|:,()[]{}<>$"
 notify-on-command-finish-action = no-bell
 font-size = 15
+font-family = JetBrainsMono Nerd Font
 
 # 'selection-word-chars' characters:
 #	Characters that mark word boundaries during text selection operations such as double-clicking.
@@ -101,19 +102,19 @@ focus-follows-mouse = true
 
 # 'windows-decoration' parameters:
 #	- none:
-#		All window decorations will be disabled. 
+#		All window decorations will be disabled.
 #		Titlebar, borders, etc. will not be shown.
 #
 #	- auto:
-#		Automatically decide to use either client-side or server-side decorations 
+#		Automatically decide to use either client-side or server-side decorations
 #		based on the detected preferences of the current OS and desktop environment.
 #
 #	- client:
 #		Prefer client-side decorations.
 #
 #	- server:
-#		Prefer server-side decorations. This is only relevant on Linux with GTK, 
-#		either on X11, or Wayland on a compositor that supports the 
+#		Prefer server-side decorations. This is only relevant on Linux with GTK,
+#		either on X11, or Wayland on a compositor that supports the
 #		org_kde_kwin_server_decoration protocol (e.g. KDE Plasma, but almost any non-GNOME desktop supports this protocol).
 #		If server is set but the environment doesn't support server-side decorations,
 #		client-side decorations will be used instead.
